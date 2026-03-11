@@ -11,8 +11,6 @@
     "jsx": "react-jsx",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
-    "incremental": true,
 
     /* These compiler options are required by Convex */
     "target": "ESNext",

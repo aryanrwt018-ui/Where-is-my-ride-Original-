@@ -125,10 +125,6 @@ export default defineConfig({
           });
         },
       },
-      "/api/railradar/live-map": {
-        target: "http://localhost:5175",
-        changeOrigin: true,
-      },
     },
   },
   plugins: [react(), tailwindcss(), hercules()],

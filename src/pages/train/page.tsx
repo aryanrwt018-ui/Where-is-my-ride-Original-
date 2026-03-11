@@ -8,6 +8,8 @@ import type { MarkerData } from "@/components/globe-3d-cesium.tsx";
 import { RotateCw } from "lucide-react";
 import { loadStations } from "@/lib/stations.ts";
 import { formatMinutesToClockString, formatRelativeUpdateTime, parseMinutesAny } from "@/lib/train-time.ts";
+import { useConvex } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 // Coordinate normalization for inconsistent API fields
 function normalize(lat: number, lng: number) {
@@ -44,6 +46,7 @@ const DEFAULT_STATIONS: MarkerData[] = [
 ];
 
 export default function TrainPage() {
+  const convex = useConvex();
   const env = (import.meta as unknown as { env?: Record<string, string> }).env;
   const hasIonToken = Boolean(env?.VITE_CESIUM_ION_TOKEN);
   const [satellite, setSatellite] = useState(true);
@@ -246,17 +249,17 @@ export default function TrainPage() {
     } catch {}
     const run = async () => {
       try {
-        console.log("[Frontend] Requesting proxy /api/railradar/live-map");
+        console.log("[Frontend] Requesting live map from Convex");
         const ts = lastUpdateTs ? Date.parse(String(lastUpdateTs)) : NaN;
         const now = Date.now();
         if (Number.isFinite(ts) && now - ts < 30000) {
           console.log("[DATA] skip backend refresh; cache age <", (now - ts), "ms");
           return;
         }
-        const r = await fetch("/api/railradar/live-map", { cache: "no-store" });
-        console.log("[Frontend] Proxy response status:", r.status);
-        if (!r.ok) throw new Error(String(r.status));
-        const d = await r.json();
+        
+        const d = await convex.action(api.railradar.getLiveMap, {});
+        console.log("[Frontend] Convex action response received");
+        
         const list: any[] = Array.isArray(d?.data) ? d.data : [];
         const metaTs: string | undefined = String(d?.meta?.timestamp ?? "");
         if (canceled) return;

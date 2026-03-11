@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as railradar from "../railradar.js";
+import type * as stations from "../stations.js";
+import type * as trains from "../trains.js";
 import type * as users from "../users.js";
 
 import type {
@@ -17,6 +20,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  railradar: typeof railradar;
+  stations: typeof stations;
+  trains: typeof trains;
   users: typeof users;
 }>;
 
