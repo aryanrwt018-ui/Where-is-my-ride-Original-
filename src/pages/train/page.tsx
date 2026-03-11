@@ -69,12 +69,12 @@ export default function TrainPage() {
   const [lastUpdateTs, setLastUpdateTs] = useState<string | null>(null);
   const [selectedTrainInfo, setSelectedTrainInfo] = useState<any | null>(null);
   const [selectedTarget, setSelectedTarget] = useState<{
-  id: string;
-  current: [number, number];
-  next: [number, number];
-  lastUpdated?: string;
-  etaMinutes?: number;
-} | null>(null);
+    id: string;
+    current: [number, number];
+    next: [number, number];
+    lastUpdated?: string;
+    etaMinutes?: number;
+  } | null>(null);
   const [selectedTrainImg, setSelectedTrainImg] = useState<string | null>(null);
 
   const PLACEHOLDER_IMG =
@@ -320,7 +320,8 @@ export default function TrainPage() {
             const nLat = Number(found?.next_lat);
             const nLng = Number(found?.next_lng);
             if (Number.isFinite(cLat) && Number.isFinite(cLng) && Number.isFinite(nLat) && Number.isFinite(nLng)) {
-              setSelectedTarget({ id: num, current: [cLat, cLng], next: [nLat, nLng], lastUpdated: lastUpdateTs || undefined });
+              const eta = parseMinutesAny((found as any)?.next_arrival_minutes);
+              setSelectedTarget({ id: num, current: [cLat, cLng], next: [nLat, nLng], lastUpdated: lastUpdateTs || undefined, etaMinutes: eta });
             } else {
               setSelectedTarget(null);
             }
@@ -450,12 +451,13 @@ export default function TrainPage() {
                   const nLng = Number(foundLive?.next_lng);
                   if (Number.isFinite(cLat) && Number.isFinite(cLng) && Number.isFinite(nLat) && Number.isFinite(nLng)) {
                     const eta = parseMinutesAny((foundLive as any)?.next_arrival_minutes);
-setSelectedTarget({
-  id: num,
-  current: [cLat, cLng],
-  next: [nLat, nLng],
-  lastUpdated: lastUpdateTs || undefined,
-});                  } else {
+                    setSelectedTarget({
+                      id: num,
+                      current: [cLat, cLng],
+                      next: [nLat, nLng],
+                      lastUpdated: lastUpdateTs || undefined,
+                      etaMinutes: eta,
+                    });                  } else {
                     setSelectedTarget(null);
                   }
                 }
