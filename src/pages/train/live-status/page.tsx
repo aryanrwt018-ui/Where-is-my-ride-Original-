@@ -25,7 +25,14 @@ function parseMinutesAny(v: any) {
   return Number.isFinite(n) ? n : 0;
 }
 function formatArrivalTime(_: string | null, minutes: any) { return formatMinutesToClockString(minutes); }
-function localeTs(iso: string | null) { return formatLocalTimeFromISO(iso); }
+function localeTs(iso: string | null) {
+  if (!iso) return "--";
+  return new Date(iso).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
+}
 
 export default function LiveStatusPage() {
   const [stationCode, setStationCode] = useState("NDLS");

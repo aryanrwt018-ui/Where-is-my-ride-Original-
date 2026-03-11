@@ -177,6 +177,12 @@ export default function TrainPage() {
     return null;
   }
 
+  const lastUpdateIST = lastUpdateTs ? new Date(lastUpdateTs).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "short"
+  }) : "";
+
   const lastUpdateLocal = lastUpdateTs ? formatRelativeUpdateTime(lastUpdateTs) : "";
 
   async function handleStationSelect(st: MarkerData) {
@@ -587,7 +593,7 @@ export default function TrainPage() {
               <div>Arr: {formatMinutesToClockString(selectedTrainInfo?.next_arrival_minutes)}</div>
               <div>Current distance: {String(selectedTrainInfo?.curr_distance ?? "")}</div>
               <div>Next distance: {String(selectedTrainInfo?.next_distance ?? "")}</div>
-              <div>Last updated: {lastUpdateLocal}</div>
+              <div>Last updated: {lastUpdateIST}</div>
               <div className="col-span-2 mt-2">
                 <div className="text-xs text-muted-foreground">Running Days</div>
                 <div className="mt-1 flex flex-wrap gap-1">

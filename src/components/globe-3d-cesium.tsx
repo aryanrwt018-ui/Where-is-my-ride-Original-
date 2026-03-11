@@ -1474,7 +1474,7 @@ export default function Globe3DCesium({
       )}
       <div className="pointer-events-none absolute bottom-16 right-3 z-50 flex h-[64px] items-center gap-2 rounded-lg bg-black/50 px-3 py-0 backdrop-blur">
         <img
-          src="/Frontend/assets/Company.png"
+          src="/Company.png"
           alt="WIMR"
           className="h-[62px] w-[62px] object-contain"
         />

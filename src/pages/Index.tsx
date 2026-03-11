@@ -7,7 +7,7 @@ export default function Index() {
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 p-6">
       <div className="flex items-center gap-4">
         <img
-          src="/Frontend/assets/Company.png"
+          src="/Company.png"
           alt="Company logo"
           className="h-12 w-auto md:h-14"
         />

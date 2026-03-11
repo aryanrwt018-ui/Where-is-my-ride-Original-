@@ -22,6 +22,12 @@ export default function SearchTrainPage() {
   const [lastUpdateTs, setLastUpdateTs] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"live" | "info">("live");
   const currentRef = useRef<HTMLDivElement | null>(null);
+  const lastUpdateIST = lastUpdateTs ? new Date(lastUpdateTs).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "medium",
+    timeStyle: "short"
+  }) : "";
+
   const lastUpdateLocal = lastUpdateTs ? formatRelativeUpdateTime(lastUpdateTs) : "";
 
   async function getWikipediaTrainImage(nameOrNum: string): Promise<string | null> {
@@ -284,7 +290,7 @@ export default function SearchTrainPage() {
                         Currently at {String(foundTrain?.current_station_name ?? "")}
                       </div>
                       {lastUpdateTs ? (
-                        <div className="text-xs text-muted-foreground">Last update: {lastUpdateLocal}</div>
+                        <div className="text-xs text-muted-foreground">Last update: {lastUpdateIST}</div>
                       ) : null}
                     </div>
                   </div>
