@@ -9,12 +9,12 @@ export const getLiveMap = action({
       throw new Error("RAILRADAR_API_KEY is not set");
     }
 
-    try {
-      const res = await fetch("https://api.railradar.org/api/v1/trains/live-map", {
-  headers: {
-    "x-api-key": process.env.RAILRADAR_API_KEY!,
-  },
-});
+try {
+  const res = await fetch("https://api.railradar.org/api/v1/trains/live-map", {
+    headers: {
+      "x-api-key": process.env.RAILRADAR_API_KEY!,
+    },
+  });
 
       if (!res.ok) {
         console.error(`RailRadar API returned ${res.status}: ${res.statusText}`);
