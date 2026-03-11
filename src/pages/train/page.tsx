@@ -444,8 +444,12 @@ export default function TrainPage() {
                   const nLng = Number(foundLive?.next_lng);
                   if (Number.isFinite(cLat) && Number.isFinite(cLng) && Number.isFinite(nLat) && Number.isFinite(nLng)) {
                     const eta = parseMinutesAny((foundLive as any)?.next_arrival_minutes);
-                    setSelectedTarget({ id: num, current: [cLat, cLng], next: [nLat, nLng], lastUpdated: lastUpdateTs || undefined, etaMinutes: Number.isFinite(eta) ? eta : undefined });
-                  } else {
+setSelectedTarget({
+  id: num,
+  current: [cLat, cLng],
+  next: [nLat, nLng],
+  lastUpdated: lastUpdateTs || undefined,
+});                  } else {
                     setSelectedTarget(null);
                   }
                 }
