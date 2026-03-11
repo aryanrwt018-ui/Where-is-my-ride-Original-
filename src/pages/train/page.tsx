@@ -68,7 +68,13 @@ export default function TrainPage() {
   const [liveTrains, setLiveTrains] = useState<any[]>([]);
   const [lastUpdateTs, setLastUpdateTs] = useState<string | null>(null);
   const [selectedTrainInfo, setSelectedTrainInfo] = useState<any | null>(null);
-  const [selectedTarget, setSelectedTarget] = useState<{ id: string; current: [number, number]; next: [number, number]; lastUpdated?: string } | null>(null);
+  const [selectedTarget, setSelectedTarget] = useState<{
+  id: string;
+  current: [number, number];
+  next: [number, number];
+  lastUpdated?: string;
+  etaMinutes?: number;
+} | null>(null);
   const [selectedTrainImg, setSelectedTrainImg] = useState<string | null>(null);
 
   const PLACEHOLDER_IMG =
